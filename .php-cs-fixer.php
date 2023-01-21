@@ -63,7 +63,7 @@ return $config
     'combine_nested_dirname' => true,
     'compact_nullable_typehint' => true,
     'concat_space' => [
-      'spacing' => 'one',
+      'spacing' => 'none',
     ],
     'constant_case' => [
       'case' => 'lower',

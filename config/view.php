@@ -1,8 +1,9 @@
 <?php
 
-return [
+declare(strict_types=1);
 
-    /*
+return [
+  /*
     |--------------------------------------------------------------------------
     | View Storage Paths
     |--------------------------------------------------------------------------
@@ -11,13 +12,13 @@ return [
     | an array of paths that should be checked for your views. Of course
     | the usual Laravel view path has already been registered for you.
     |
-    */
+   */
 
-    'paths' => [
-        resource_path('views'),
-    ],
+  'paths' => [
+    resource_path('views'),
+  ],
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Compiled View Path
     |--------------------------------------------------------------------------
@@ -26,11 +27,7 @@ return [
     | stored for your application. Typically, this is within the storage
     | directory. However, as usual, you are free to change this value.
     |
-    */
+   */
 
-    'compiled' => env(
-        'VIEW_COMPILED_PATH',
-        realpath(storage_path('framework/views'))
-    ),
-
+  'compiled' => env('VIEW_COMPILED_PATH', realpath(storage_path('framework/views'))),
 ];

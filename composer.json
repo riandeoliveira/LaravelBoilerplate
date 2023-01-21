@@ -46,6 +46,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "fix": [
+            "php-cs-fixer fix"
         ]
     },
     "extra": {

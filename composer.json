@@ -1,15 +1,47 @@
 {
-  "name": "laravel-boilerplate",
-  "type": "project",
+  "name": "riandeoliveira/laravel-boilerplate",
   "description": "A Laravel Boilerplate.",
+  "version": "0.0.1",
+  "type": "project",
+  "license": "MIT",
+  "homepage": "https://localhost:8000",
+  "readme": "./README.md",
+  "time": "2023-01-21 11-46-09",
+  "authors": [
+    {
+      "name": "Rian Dias de Oliveira",
+      "email": "riandiasdeoliveira2001@gmail.com",
+      "homepage": "https://github.com/riandeoliveira",
+      "role": "Web Developer Intern"
+    }
+  ],
   "keywords": [
     "boilerplate",
     "framework",
-    "laravel"
+    "laravel",
+    "php"
   ],
-  "license": "MIT",
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ],
+    "post-update-cmd": [
+      "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "@php artisan key:generate --ansi"
+    ],
+    "fix": [
+      "php-cs-fixer fix"
+    ]
+  },
   "require": {
     "php": "^8.0.2",
+    "doctrine/dbal": "^3.5",
     "friendsofphp/php-cs-fixer": "^3.13",
     "guzzlehttp/guzzle": "^7.2",
     "laravel/framework": "^9.19",
@@ -37,35 +69,17 @@
       "Tests\\": "tests/"
     }
   },
-  "scripts": {
-    "post-autoload-dump": [
-      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-      "@php artisan package:discover --ansi"
-    ],
-    "post-update-cmd": [
-      "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-    ],
-    "post-root-package-install": [
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "post-create-project-cmd": [
-      "@php artisan key:generate --ansi"
-    ],
-    "fix": [
-      "php-cs-fixer fix"
-    ]
-  },
-  "extra": {
-    "laravel": {
-      "dont-discover": []
-    }
-  },
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
     "sort-packages": true,
     "allow-plugins": {
       "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
     }
   },
   "minimum-stability": "stable",

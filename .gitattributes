@@ -6,6 +6,6 @@
 *.md diff=markdown
 *.php diff=php
 
+.styleci.yml export-ignore
 /.github export-ignore
 CHANGELOG.md export-ignore
-.styleci.yml export-ignore

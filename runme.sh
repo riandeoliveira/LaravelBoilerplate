@@ -79,7 +79,7 @@ if [ $? -eq 0 ]; then
             # automatically delete this file
             rm -r runme.sh
 
-            echo "SUCESS: You are ready to get started!"
+            echo "Great, now you just need to create your git repository and you will be ready to start!"
           else
             echo "ERROR: Cannot delete .git directory"
           fi

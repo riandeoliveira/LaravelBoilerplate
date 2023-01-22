@@ -8,7 +8,7 @@ function break_line() {
 }
 
 # delete .git
-rm -r .git
+rm -rf .git
 
 # ask user information
 echo "Before we get started, let's answer a few questions."

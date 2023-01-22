@@ -8,7 +8,7 @@ function break_line() {
 }
 
 # delete .git
-rm -rf .git
+# rm -rf .git
 
 # ask user information
 echo "Before we get started, let's answer a few questions."
@@ -22,13 +22,16 @@ read -p "Your email (johndoe2000@mail.com): " USER_EMAIL
 read -p "Your project name (project-name): " PROJECT_NAME
 read -p "Your project description (Lorem Ipsum...): " PROJECT_DESCRIPTION
 
+# creates an .env file
+cp .env.example .env
+
 # replaces placeholders with input data
 
 # config/app.php
 sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" config/app.php
 
 # .env
-sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" .env.example
+sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" .env
 
 # composer.json
 sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" composer.json
@@ -42,12 +45,11 @@ sed -i "s/<USERNAME>/$USERNAME/g" README.md
 sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" README.md
 sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" README.md
 
-# creates an .env file with the APP_KEY
-cp .env.example .env
-php artisan key:generate
-
 # install dependencies
 composer install
+
+# generate APP_KEY
+php artisan key:generate
 
 # automatically delete this file
 rm -r runme.sh

@@ -1,6 +1,6 @@
 {
-  "name": "riandeoliveira/laravel-boilerplate",
-  "description": "A Laravel Boilerplate.",
+  "name": "<GITHUB_USERNAME>/<PROJECT_NAME>",
+  "description": "<PROJECT_DESCRIPTION>",
   "version": "0.0.1",
   "type": "project",
   "license": "MIT",
@@ -9,10 +9,9 @@
   "time": "2023-01-21 11-46-09",
   "authors": [
     {
-      "name": "Rian Dias de Oliveira",
-      "email": "riandiasdeoliveira2001@gmail.com",
-      "homepage": "https://github.com/riandeoliveira",
-      "role": "Web Developer Intern"
+      "name": "<USERNAME>",
+      "email": "<USER_EMAIL>",
+      "homepage": "https://github.com/<GITHUB_USERNAME>"
     }
   ],
   "keywords": [

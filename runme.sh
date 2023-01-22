@@ -2,13 +2,15 @@
 
 # RUN THIS FILE WITH bash runme.sh TO START YOUR PROJECT
 
+# date and time
+CURRENT_DATE=$(date +'%Y-%m-%d')
+CURRENT_TIME=$(date +%H-%M-%S)
+DATE="$CURRENT_DATE $CURRENT_TIME"
+
 # utils
 function break_line() {
   echo ""
 }
-
-# delete .git
-# rm -rf .git
 
 break_line
 
@@ -24,34 +26,72 @@ read -p "Your email (johndoe2000@mail.com): " USER_EMAIL
 read -p "Your project name (project-name): " PROJECT_NAME
 read -p "Your project description (Lorem Ipsum...): " PROJECT_DESCRIPTION
 
-# creates an .env file
-cp .env.example .env
+break_line
 
-# replaces placeholders with input data
+if [ $? -eq 0 ]; then
+  # creates an .env file
+  cp .env.example .env
 
-# config/app.php
-sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" config/app.php
+  if [ $? -eq 0 ]; then
+    echo "SUCESS: .env file created"
 
-# .env
-sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" .env
+    # replaces placeholders with input data
 
-# composer.json
-sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" composer.json
-sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" composer.json
-sed -i "s/<PROJECT_DESCRIPTION>/$PROJECT_DESCRIPTION/g" composer.json
-sed -i "s/<USERNAME>/$USERNAME/g" composer.json
-sed -i "s/<USER_EMAIL>/$USER_EMAIL/g" composer.json
+    # config/app.php
+    sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" config/app.php
 
-# README.md
-sed -i "s/<USERNAME>/$USERNAME/g" README.md
-sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" README.md
-sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" README.md
+    # .env
+    sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" .env
 
-# install dependencies
-composer install
+    # composer.json
+    sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" composer.json
+    sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" composer.json
+    sed -i "s/<PROJECT_DESCRIPTION>/$PROJECT_DESCRIPTION/g" composer.json
+    sed -i "s/<DATE>/$DATE/g" composer.json
+    sed -i "s/<USERNAME>/$USERNAME/g" composer.json
+    sed -i "s/<USER_EMAIL>/$USER_EMAIL/g" composer.json
 
-# generate APP_KEY
-php artisan key:generate
+    # README.md
+    sed -i "s/<USERNAME>/$USERNAME/g" README.md
+    sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" README.md
+    sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" README.md
 
-# automatically delete this file
-rm -r runme.sh
+    if [ $? -eq 0 ]; then
+      echo "SUCESS: Completed fields"
+
+      break_line
+
+      # install dependencies
+      composer install
+
+      if [ $? -eq 0 ]; then
+        # generate APP_KEY
+        php artisan key:generate
+
+        if [ $? -eq 0 ]; then
+          # delete git
+          rm -rf .git
+
+          if [ $? -eq 0 ]; then
+            # automatically delete this file
+            rm -r runme.sh
+
+            echo "SUCESS: You are ready to get started!"
+          else
+            echo "ERROR: Cannot delete .git directory"
+          fi
+        else
+          echo "ERROR: Cannot generate APP_KEY"
+        fi
+      else
+        echo "ERROR: Cannot install composer dependencies"
+      fi
+    else
+      echo "ERROR: Cannot not fill in the fields with the obtained data"
+    fi
+  else
+    echo "ERROR: Cannot create .env file"
+  fi
+else
+  echo "ERROR: Unable to get data"
+fi

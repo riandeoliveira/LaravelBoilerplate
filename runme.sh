@@ -61,6 +61,9 @@ if [ $? -eq 0 ]; then
 
       break_line
 
+      # delete composer.lock file
+      rm -r composer.lock
+
       # install dependencies
       composer install
 

@@ -213,8 +213,6 @@ return $config
     'no_whitespace_before_comma_in_array' => true,
     'no_whitespace_in_blank_line' => true,
     'normalize_index_brace' => true,
-    'not_operator_with_space' => true,
-    'not_operator_with_successor_space' => true,
     'ordered_class_elements' => [
       'sort_algorithm' => 'alpha',
     ],
@@ -269,7 +267,6 @@ return $config
     'trim_array_spaces' => true,
     'types_spaces' => true,
     'unary_operator_spaces' => true,
-    'use_arrow_functions' => true,
     'visibility_required' => [
       'elements' => [
         'const',

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Middleware\{EncryptCookies, VerifyCsrfToken};
 use Laravel\Sanctum\Sanctum;
 
 return [
@@ -57,7 +58,7 @@ return [
    */
 
   'middleware' => [
-    'verify_csrf_token' => App\Http\Middleware\VerifyCsrfToken::class,
-    'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
+    'verify_csrf_token' => VerifyCsrfToken::class,
+    'encrypt_cookies' => EncryptCookies::class,
   ],
 ];

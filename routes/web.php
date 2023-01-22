@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Contracts\View\{Factory, View};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', fn() => view('welcome'));
+Route::get('/', function(): View|Factory {
+  return view('welcome');
+});

@@ -7,6 +7,8 @@ namespace App\Http\Middleware;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Http\{RedirectResponse, Response};
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated {
@@ -18,7 +20,7 @@ class RedirectIfAuthenticated {
    * @param  string|null  ...$guards
    * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
    */
-  public function handle(Request $request, Closure $next, ...$guards) {
+  public function handle(Request $request, Closure $next, string|null ...$guards): RedirectResponse|Response|Redirector {
     $guards = empty($guards) ? [null] : $guards;
 
     foreach ($guards as $guard) {

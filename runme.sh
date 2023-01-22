@@ -10,6 +10,8 @@ function break_line() {
 # delete .git
 # rm -rf .git
 
+break_line
+
 # ask user information
 echo "Before we get started, let's answer a few questions."
 echo "You can change the answers whenever you want later :)"

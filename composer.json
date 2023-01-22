@@ -9,7 +9,7 @@
   "time": "<DATE>",
   "authors": [
     {
-      "name": "<USERNAME>",
+      "name": "<AUTHOR>",
       "email": "<USER_EMAIL>",
       "homepage": "https://github.com/<GITHUB_USERNAME>"
     }

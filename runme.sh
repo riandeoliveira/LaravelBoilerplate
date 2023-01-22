@@ -20,7 +20,7 @@ echo "You can change the answers whenever you want later :)"
 
 break_line
 
-read -p "Your name (John Doe): " USERNAME
+read -p "Your name (John Doe): " AUTHOR
 read -p "Your GitHub username (jonhdoe): " GITHUB_USERNAME
 read -p "Your email (johndoe2000@mail.com): " USER_EMAIL
 read -p "Your project name (project-name): " PROJECT_NAME
@@ -48,11 +48,11 @@ if [ $? -eq 0 ]; then
     sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" composer.json
     sed -i "s/<PROJECT_DESCRIPTION>/$PROJECT_DESCRIPTION/g" composer.json
     sed -i "s/<DATE>/$DATE/g" composer.json
-    sed -i "s/<USERNAME>/$USERNAME/g" composer.json
+    sed -i "s/<AUTHOR>/$AUTHOR/g" composer.json
     sed -i "s/<USER_EMAIL>/$USER_EMAIL/g" composer.json
 
     # README.md
-    sed -i "s/<USERNAME>/$USERNAME/g" README.md
+    sed -i "s/<AUTHOR>/$AUTHOR/g" README.md
     sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" README.md
     sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" README.md
 

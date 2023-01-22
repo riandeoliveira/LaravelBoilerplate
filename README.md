@@ -85,4 +85,4 @@
 
 <br>
 
-<p align="center">✨ Made with 💙 by <a href="https://github.com/<GITHUB_USERNAME>"><strong><USERNAME></strong></a> ✨</p>
+<p align="center">✨ Made with 💙 by <a href="https://github.com/<GITHUB_USERNAME>"><strong><AUTHOR></strong></a> ✨</p>

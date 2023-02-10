@@ -148,7 +148,11 @@ echo "runme.sh" >> ".gitignore"
 
 echo "Adding files to the staging area..."
 
+break_line
+
 git add .
+
+break_line
 
 echo "Making the first commit..."
 

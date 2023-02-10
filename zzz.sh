@@ -73,6 +73,11 @@ sed -i "s/<AUTHOR>/$AUTHOR/g" README.md
 sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" README.md
 sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" README.md
 
+echo "Installing dependencies..."
+
+break_line
+
+composer install
 
 
 
@@ -97,11 +102,6 @@ sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" README.md
 
 
 
-
-
-# echo "Installing dependencies..."
-
-# break_line
 
 # # trying with yarn
 # yarn

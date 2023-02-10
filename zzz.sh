@@ -32,6 +32,10 @@ GITHUB_REPO_NAME=$(echo "$PROJECT_NAME" | tr -d ' ')
 
 break_line
 
+echo "Generating .env file"
+
+cp .env.example .env
+
 # echo "Deleting boilerplate .git..."
 
 # rm -rf .git
@@ -41,17 +45,17 @@ break_line
 echo "Adding information to the project..."
 
 # config/app.php
-sed -id "s/<PROJECT_NAME>/$PROJECT_NAME/g" config/app.php
+sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" config/app.php
 
 # app/Http/Controllers/Controller.php
-sed -id "s/<PROJECT_NAME>/$PROJECT_NAME/g" app/Http/Controllers/Controller.php
-sed -id "s/<DESCRIPTION>/$DESCRIPTION/g" app/Http/Controllers/Controller.php
-sed -id "s/<AUTHOR>/$AUTHOR/g" app/Http/Controllers/Controller.php
-sed -id "s/<EMAIL>/$EMAIL/g" app/Http/Controllers/Controller.php
-sed -id "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" app/Http/Controllers/Controller.php
+sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" app/Http/Controllers/Controller.php
+sed -i "s/<DESCRIPTION>/$DESCRIPTION/g" app/Http/Controllers/Controller.php
+sed -i "s/<AUTHOR>/$AUTHOR/g" app/Http/Controllers/Controller.php
+sed -i "s/<EMAIL>/$EMAIL/g" app/Http/Controllers/Controller.php
+sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" app/Http/Controllers/Controller.php
 
 # resources/views/layout.blade.php
-sed -id "s/<PROJECT_NAME>/$PROJECT_NAME/g" resources/views/layout.blade.php
+sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" resources/views/layout.blade.php
 
 # .env
 sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" .env

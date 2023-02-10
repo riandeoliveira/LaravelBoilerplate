@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Contracts\View\{Factory, View};
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function(): View|Factory {
   return view('welcome');
 });
+
+Route::get('/login', function(): JsonResponse {
+  return response()->json(['error' => 'Invalid or empty access token.'], 401);
+})->name('login');

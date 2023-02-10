@@ -39,9 +39,9 @@ echo "Generating .env file..."
 
 cp .env.example .env
 
-# echo "Deleting boilerplate .git..."
+echo "Deleting boilerplate .git..."
 
-# rm -rf .git
+rm -rf .git
 
 # replaces placeholders with input data
 
@@ -110,84 +110,66 @@ echo "Populating database with fake data..."
 
 php artisan db:seed
 
+echo "Initializing git..."
 
+break_line
 
+git init
 
+break_line
 
+echo "Adding remote origin..."
 
+git branch -m main
 
+git remote add origin "https://github.com/$GITHUB_USERNAME/$GITHUB_REPO_NAME"
 
+echo "Initializing git flow..."
 
+break_line
 
+git flow init -d
 
+break_line
 
+echo "Renaming 'master' to 'main'..."
 
+break_line
 
+git checkout master
+git branch -m main
+git checkout develop
 
+break_line
 
+echo "Adding 'runme.sh' file to '.gitignore'..."
 
+echo "runme.sh" >> ".gitignore"
 
+echo "Adding files to the staging area..."
 
-# echo "Initializing git..."
+git add .
 
-# break_line
+echo "Making the first commit..."
 
-# git init
+break_line
 
-# break_line
+git commit -m "feat: initial commit"
 
-# echo "Adding remote origin..."
+break_line
 
-# git branch -m main
+echo "Pushing the changes..."
 
-# git remote add origin "https://github.com/$GITHUB_USERNAME/$GITHUB_REPO_NAME"
+break_line
 
-# echo "Initializing git flow..."
+git push origin main
+git push origin develop
 
-# break_line
+break_line
 
-# git flow init -d
+echo "Deleting 'runme.sh' file..."
+echo "Have a nice coding, $AUTHOR!"
 
-# break_line
+sleep 3
 
-# echo "Renaming 'master' to 'main'..."
-
-# break_line
-
-# git checkout master
-# git branch -m main
-# git checkout develop
-
-# break_line
-
-# echo "Adding 'runme.sh' file to '.gitignore'..."
-
-# echo "runme.sh" >> ".gitignore"
-
-# echo "Adding files to the staging area..."
-
-# git add .
-
-# echo "Making the first commit..."
-
-# break_line
-
-# git commit -m "feat: initial commit"
-
-# break_line
-
-# echo "Pushing the changes..."
-
-# break_line
-
-# git push origin main
-# git push origin develop
-
-# break_line
-
-# echo "Deleting 'runme.sh' file..."
-# echo "Have a nice coding, $AUTHOR!"
-
-# sleep 3
-
-# rm -rf runme.sh
+rm -rf runme.sh

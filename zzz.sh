@@ -32,7 +32,7 @@ GITHUB_REPO_NAME=$(echo "$PROJECT_NAME" | tr -d ' ')
 
 break_line
 
-echo "Generating .env file"
+echo "Generating .env file..."
 
 cp .env.example .env
 
@@ -79,6 +79,19 @@ break_line
 
 composer install
 
+break_line
+
+echo "Generating API docs with l5-swagger..."
+
+break_line
+
+php artisan l5-swagger:generate
+
+break_line
+
+echo "Generating APP_KEY..."
+
+php artisan key:generate
 
 
 
@@ -103,29 +116,6 @@ composer install
 
 
 
-# # trying with yarn
-# yarn
-
-# if [ $? -eq 1 ]; then
-#   # trying with npm
-#   npm install
-# fi
-
-# break_line
-
-# echo "Running lint..."
-
-# break_line
-
-# # try lint with yarn
-# yarn lint
-
-# if [ $? -eq 1 ]; then
-#   # try lint with npm
-#   npm run lint
-# fi
-
-# break_line
 
 # echo "Initializing git..."
 

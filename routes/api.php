@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::middleware('auth:sanctum')->get('/user', function(Request $request): mixed {
-  return $request->user();
-});
+Route::controller(UserController::class)
+  ->prefix('users')
+  ->group(function(): void {
+    Route::middleware('auth:sanctum')->get('/logged-user', 'loggedUser');
+    Route::middleware('auth:sanctum')->get('/logout', 'logout');
+    Route::patch('/reset-password', 'resetPassword');
+    Route::post('/forgot-password', 'forgotPassword');
+    Route::post('/login', 'login');
+    Route::post('/register', 'register');
+  });

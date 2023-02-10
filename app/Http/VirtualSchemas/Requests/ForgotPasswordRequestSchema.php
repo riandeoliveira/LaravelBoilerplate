@@ -7,11 +7,11 @@ namespace App\VirtualSchemas\Requests;
 /**
  * @OA\Schema(
  *   schema="ForgotPasswordRequestSchema",
- *   title="ForgotPasswordResponse",
+ *   title="ForgotPasswordRequest",
  *   type="object"
  * )
  */
-class ForgotPasswordResponseSchema {
+class ForgotPasswordRequestSchema {
   /**
    * @OA\Property(
    *   property="email",

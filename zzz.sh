@@ -30,6 +30,9 @@ read -p "Your project description (Lorem Ipsum...): " DESCRIPTION
 LOWERCASE_PROJECT_NAME=$(echo "$PROJECT_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 GITHUB_REPO_NAME=$(echo "$PROJECT_NAME" | tr -d ' ')
 
+DB_CONNECTION="sqlite"
+DB_DATABASE="$(pwd)/database/db.sqlite"
+
 break_line
 
 echo "Generating .env file..."
@@ -59,6 +62,8 @@ sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" resources/views/layout.blade.php
 
 # .env
 sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" .env
+sed -i "s/<DB_CONNECTION>/$DB_CONNECTION/g" .env
+sed -i "s|<DB_DATABASE>|$DB_DATABASE|g" .env
 
 # composer.json
 sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" composer.json
@@ -93,11 +98,17 @@ echo "Generating APP_KEY..."
 
 php artisan key:generate
 
+echo "Creating local database with SQLite..."
 
+touch database/db.sqlite
 
+echo "Running migrations..."
 
+php artisan migrate
 
+echo "Populating database with fake data..."
 
+php artisan db:seed
 
 
 

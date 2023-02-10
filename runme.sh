@@ -14,7 +14,8 @@ function break_line() {
 
 break_line
 
-# ask user information
+# ask for information
+
 echo "Before we get started, let's answer a few questions."
 echo "You can change the answers whenever you want later :)"
 
@@ -23,78 +24,152 @@ break_line
 read -p "Your name (John Doe): " AUTHOR
 read -p "Your GitHub username (jonhdoe): " GITHUB_USERNAME
 read -p "Your email (johndoe2000@mail.com): " EMAIL
-read -p "Your project name (project-name): " PROJECT_NAME
+read -p "Your project name (My Project): " PROJECT_NAME
 read -p "Your project description (Lorem Ipsum...): " DESCRIPTION
+
+LOWERCASE_PROJECT_NAME=$(echo "$PROJECT_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+GITHUB_REPO_NAME=$(echo "$PROJECT_NAME" | tr -d ' ')
+
+DB_CONNECTION="sqlite"
+DB_DATABASE="$(pwd -W)/database/db.sqlite"
 
 break_line
 
-if [ $? -eq 0 ]; then
-  # creates an .env file
-  cp .env.example .env
+echo "Generating .env file..."
 
-  if [ $? -eq 0 ]; then
-    echo "SUCESS: .env file created"
+cp .env.example .env
 
-    # replaces placeholders with input data
+echo "Deleting boilerplate .git..."
 
-    # config/app.php
-    sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" config/app.php
+rm -rf .git
 
-    # .env
-    sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" .env
+# replaces placeholders with input data
 
-    # composer.json
-    sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" composer.json
-    sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" composer.json
-    sed -i "s/<DESCRIPTION>/$DESCRIPTION/g" composer.json
-    sed -i "s/<DATE>/$DATE/g" composer.json
-    sed -i "s/<AUTHOR>/$AUTHOR/g" composer.json
-    sed -i "s/<EMAIL>/$EMAIL/g" composer.json
+echo "Adding information to the project..."
 
-    # README.md
-    sed -i "s/<AUTHOR>/$AUTHOR/g" README.md
-    sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" README.md
-    sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" README.md
+# config/app.php
+sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" config/app.php
 
-    if [ $? -eq 0 ]; then
-      echo "SUCESS: Completed fields"
+# app/Http/Controllers/Controller.php
+sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" app/Http/Controllers/Controller.php
+sed -i "s/<DESCRIPTION>/$DESCRIPTION/g" app/Http/Controllers/Controller.php
+sed -i "s/<AUTHOR>/$AUTHOR/g" app/Http/Controllers/Controller.php
+sed -i "s/<EMAIL>/$EMAIL/g" app/Http/Controllers/Controller.php
+sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" app/Http/Controllers/Controller.php
 
-      break_line
+# resources/views/layout.blade.php
+sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" resources/views/layout.blade.php
 
-      # delete composer.lock file
-      rm -r composer.lock
+# .env
+sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" .env
+sed -i "s/<DB_CONNECTION>/$DB_CONNECTION/g" .env
+sed -i "s|<DB_DATABASE>|$DB_DATABASE|g" .env
 
-      # install dependencies
-      composer install
+# composer.json
+sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" composer.json
+sed -i "s/<LOWERCASE_PROJECT_NAME>/$LOWERCASE_PROJECT_NAME/g" composer.json
+sed -i "s/<DESCRIPTION>/$DESCRIPTION/g" composer.json
+sed -i "s/<DATE>/$DATE/g" composer.json
+sed -i "s/<AUTHOR>/$AUTHOR/g" composer.json
+sed -i "s/<EMAIL>/$EMAIL/g" composer.json
 
-      if [ $? -eq 0 ]; then
-        # generate APP_KEY
-        php artisan key:generate
+# README.md
+sed -i "s/<AUTHOR>/$AUTHOR/g" README.md
+sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" README.md
+sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" README.md
 
-        if [ $? -eq 0 ]; then
-          # delete git
-          rm -rf .git
+echo "Installing dependencies..."
 
-          if [ $? -eq 0 ]; then
-            # automatically delete this file
-            rm -r runme.sh
+break_line
 
-            echo "Great, now you just need to create your git repository and you will be ready to start!"
-          else
-            echo "ERROR: Cannot delete .git directory"
-          fi
-        else
-          echo "ERROR: Cannot generate APP_KEY"
-        fi
-      else
-        echo "ERROR: Cannot install composer dependencies"
-      fi
-    else
-      echo "ERROR: Cannot not fill in the fields with the obtained data"
-    fi
-  else
-    echo "ERROR: Cannot create .env file"
-  fi
-else
-  echo "ERROR: Unable to get data"
-fi
+composer install
+
+break_line
+
+echo "Generating API docs with l5-swagger..."
+
+break_line
+
+php artisan l5-swagger:generate
+
+break_line
+
+echo "Generating APP_KEY..."
+
+php artisan key:generate
+
+echo "Creating local database with SQLite..."
+
+touch database/db.sqlite
+
+echo "Running migrations..."
+
+php artisan migrate
+
+echo "Populating database with fake data..."
+
+php artisan db:seed
+
+echo "Initializing git..."
+
+break_line
+
+git init
+
+break_line
+
+echo "Adding remote origin..."
+
+git branch -m main
+
+git remote add origin "https://github.com/$GITHUB_USERNAME/$GITHUB_REPO_NAME"
+
+echo "Initializing git flow..."
+
+break_line
+
+git flow init -d
+
+break_line
+
+echo "Renaming 'master' to 'main'..."
+
+break_line
+
+git checkout master
+git branch -m main
+git checkout develop
+
+break_line
+
+echo "Adding 'runme.sh' file to '.gitignore'..."
+
+echo "runme.sh" >> ".gitignore"
+
+echo "Adding files to the staging area..."
+
+git add .
+
+echo "Making the first commit..."
+
+break_line
+
+git commit -m "feat: initial commit"
+
+break_line
+
+echo "Pushing the changes..."
+
+break_line
+
+git push origin main
+git push origin develop
+
+break_line
+
+echo "Deleting 'runme.sh' file..."
+echo "Have a nice coding, $AUTHOR!"
+
+sleep 3
+
+rm -rf runme.sh

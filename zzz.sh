@@ -31,7 +31,7 @@ LOWERCASE_PROJECT_NAME=$(echo "$PROJECT_NAME" | tr '[:upper:]' '[:lower:]' | tr 
 GITHUB_REPO_NAME=$(echo "$PROJECT_NAME" | tr -d ' ')
 
 DB_CONNECTION="sqlite"
-DB_DATABASE="$(pwd)/database/db.sqlite"
+DB_DATABASE="$(pwd -W)/database/db.sqlite"
 
 break_line
 

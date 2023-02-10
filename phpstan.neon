@@ -1,6 +1,0 @@
-parameters:
-    level: 8
-    paths: [app, bootstrap, config, database, lang, public, routes, tests, .php-cs-fixer.php, artisan]
-    excludePaths:
-      - storage
-      - vendor

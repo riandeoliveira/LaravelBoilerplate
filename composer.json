@@ -1,6 +1,6 @@
 {
   "name": "<GITHUB_USERNAME>/<PROJECT_NAME>",
-  "description": "<PROJECT_DESCRIPTION>",
+  "description": "<DESCRIPTION>",
   "version": "0.0.1",
   "type": "project",
   "license": "MIT",
@@ -10,7 +10,7 @@
   "authors": [
     {
       "name": "<AUTHOR>",
-      "email": "<USER_EMAIL>",
+      "email": "<EMAIL>",
       "homepage": "https://github.com/<GITHUB_USERNAME>"
     }
   ],
@@ -34,8 +34,7 @@
     "post-create-project-cmd": [
       "@php artisan key:generate --ansi"
     ],
-    "fix": "php-cs-fixer fix",
-    "lint": "phpstan analyse -c phpstan.neon"
+    "fix": "php-cs-fixer fix"
   },
   "require": {
     "php": "^8.0.2",
@@ -52,7 +51,6 @@
     "laravel/sail": "^1.0.1",
     "mockery/mockery": "^1.4.4",
     "nunomaduro/collision": "^6.1",
-    "phpstan/phpstan": "^1.9",
     "phpunit/phpunit": "^9.5.10",
     "spatie/laravel-ignition": "^1.0"
   },

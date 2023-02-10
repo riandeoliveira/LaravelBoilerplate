@@ -38,6 +38,7 @@
   },
   "require": {
     "php": "^8.0.2",
+    "darkaonline/l5-swagger": "^8.4",
     "doctrine/dbal": "^3.5",
     "friendsofphp/php-cs-fixer": "^3.13",
     "guzzlehttp/guzzle": "^7.2",

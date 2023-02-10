@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
+use App\Traits\RequestValidation;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ForgotPasswordRequest extends FormRequest {
+  use RequestValidation;
+
   /**
    * Determine if the user is authorized to make this request.
    *
@@ -27,11 +28,5 @@ class ForgotPasswordRequest extends FormRequest {
     return [
       'email' => ['required', 'string', 'email', 'min:10', 'max:255'],
     ];
-  }
-
-  protected function failedValidation(Validator $validator): void {
-    $responseException = response()->json(['errors' => $validator->errors()], 422);
-
-    throw new HttpResponseException($responseException);
   }
 }

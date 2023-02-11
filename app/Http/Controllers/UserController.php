@@ -46,7 +46,7 @@ class UserController extends Controller {
     User::where('id', $currentUser->id)->delete();
 
     return response()->json([
-      'message' => 'Successfully deleted user.'
+      'message' => 'Successfully deleted user.',
     ]);
   }
 
@@ -83,9 +83,9 @@ class UserController extends Controller {
    * )
    */
   public function forgotPassword(ForgotPasswordRequest $request): JsonResponse {
-    $email = $request->validated(); // CORRIGIR EXPRESSÃO!!!
+    $credentials = $request->validated();
 
-    $user = User::where('email', $email)->first();
+    $user = User::where('email', $credentials['email'])->first();
 
     if (!$user) {
       return response()->json([
@@ -93,7 +93,7 @@ class UserController extends Controller {
       ], 404);
     }
 
-    DB::table('password_resets')->where('email', $email)->delete();
+    DB::table('password_resets')->where('email', $credentials['email'])->delete();
 
     $token = Str::random(60);
 
@@ -103,7 +103,7 @@ class UserController extends Controller {
       'created_at' => Carbon::now(),
     ]);
 
-    Mail::to($email)->send(new ForgotPasswordMail($user['name'], $user['email'], $token));
+    Mail::to($credentials['email'])->send(new ForgotPasswordMail($user['name'], $user['email'], $token));
 
     return response()->json([
       'message' => 'A password reset message has been sent to your email.',

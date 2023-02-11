@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Rules\StrongPassword;
 use App\Traits\RequestValidation;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResetPasswordRequest extends FormRequest {
+class UpdateEmailRequest extends FormRequest {
   use RequestValidation;
 
   /**
@@ -27,8 +26,7 @@ class ResetPasswordRequest extends FormRequest {
    */
   public function rules(): array {
     return [
-      'password' => ['required', 'string', 'min:8', 'max:20', new StrongPassword(), 'confirmed'],
-      'password_confirmation' => ['required', 'string', 'min:8', 'max:20', new StrongPassword()],
+      'email' => ['required', 'string', 'email', 'min:10', 'max:255', 'unique:users'],
     ];
   }
 }

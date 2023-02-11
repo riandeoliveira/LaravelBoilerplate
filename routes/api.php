@@ -21,6 +21,7 @@ Route::controller(UserController::class)
   ->group(function(): void {
     Route::middleware('auth:sanctum')->get('/logged-user', 'loggedUser');
     Route::middleware('auth:sanctum')->get('/logout', 'logout');
+    Route::middleware('auth:sanctum')->patch('/update-email', 'updateEmail');
     Route::patch('/reset-password', 'resetPassword');
     Route::post('/forgot-password', 'forgotPassword');
     Route::post('/login', 'login');

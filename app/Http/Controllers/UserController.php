@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\{ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, UpdateEmailRequest};
+use App\Http\Requests\{ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, UpdateEmailRequest, UpdatePasswordRequest};
 use App\Mail\ForgotPasswordMail;
 use App\Models\User;
 use Carbon\Carbon;
@@ -54,7 +54,7 @@ class UserController extends Controller {
    * )
    */
   public function forgotPassword(ForgotPasswordRequest $request): JsonResponse {
-    $email = $request->validated();
+    $email = $request->validated(); // CORRIGIR EXPRESSÃO!!!
 
     $user = User::where('email', $email)->first();
 
@@ -345,6 +345,60 @@ class UserController extends Controller {
 
     return response()->json([
       'message' => 'Email updated successfully.',
+    ]);
+  }
+
+  /**
+   * @OA\Patch(
+   *   path="/api/users/update-password",
+   *   summary="Update user password",
+   *   description="Updates the user's password when he is logged.",
+   *   tags={"User"},
+   *   security={{"sanctum":{}}},
+   *
+   *   @OA\RequestBody(
+   *     required=true,
+   *     description="New user password",
+   *
+   *     @OA\JsonContent(ref="#/components/schemas/UpdatePasswordRequestSchema")
+   *   ),
+   *
+   *   @OA\Response(
+   *     response="200",
+   *     description="Success",
+   *
+   *     @OA\JsonContent(ref="#/components/schemas/UpdatePasswordResponseSchema")
+   *   ),
+   *
+   *   @OA\Response(
+   *     response="401",
+   *     description="Unauthorized"
+   *   ),
+   *
+   *   @OA\Response(
+   *     response="422",
+   *     description="Unprocessable Content"
+   *   )
+   * )
+   */
+  public function updatePassword(UpdatePasswordRequest $request): JsonResponse {
+    $credentials = $request->validated();
+    $currentUser = Auth::user();
+
+    $isCorrectPassword = Hash::check($credentials['current_password'], $currentUser->password);
+
+    if (!$isCorrectPassword) {
+      return response()->json([
+        'error' => 'Incorrect current password!',
+      ], 401);
+    }
+
+    User::where('id', $currentUser->id)->update([
+      'password' => Hash::make($credentials['password']),
+    ]);
+
+    return response()->json([
+      'message' => 'Password updated successfully.',
     ]);
   }
 }

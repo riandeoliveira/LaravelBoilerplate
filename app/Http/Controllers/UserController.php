@@ -22,6 +22,35 @@ use Illuminate\Support\Str;
  */
 class UserController extends Controller {
   /**
+   * @OA\Delete(
+   *   path="/api/users/delete-user",
+   *   summary="Delete a user",
+   *   description="Deletes the user account and all its data.",
+   *   tags={"User"},
+   *   security={{"sanctum":{}}},
+   *
+   *   @OA\Response(
+   *     response="200",
+   *     description="Success"
+   *   ),
+   *
+   *   @OA\Response(
+   *     response="401",
+   *     description="Unauthorized"
+   *   )
+   * )
+   */
+  public function deleteUser(): JsonResponse {
+    $currentUser = Auth::user();
+
+    User::where('id', $currentUser->id)->delete();
+
+    return response()->json([
+      'message' => 'Successfully deleted user.'
+    ]);
+  }
+
+  /**
    * @OA\Post(
    *   path="/api/users/forgot-password",
    *   summary="Handles forgotten password logic",

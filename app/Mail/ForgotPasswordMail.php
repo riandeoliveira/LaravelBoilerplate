@@ -55,6 +55,6 @@ class ForgotPasswordMail extends Mailable {
    * @return \Illuminate\Mail\Mailables\Envelope
    */
   public function envelope(): Envelope {
-    return new Envelope(from: 'todolistapi@email.com', subject: 'Forgot Password');
+    return new Envelope(from: '<LOWERCASE_PROJECT_NAME>@email.com', subject: 'Forgot Password');
   }
 }

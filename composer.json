@@ -1,5 +1,5 @@
 {
-  "name": "<GITHUB_USERNAME>/<LOWERCASE_PROJECT_NAME>",
+  "name": "<GITHUB_USERNAME>/<KEBAB_CASE_PROJECT_NAME>",
   "description": "<DESCRIPTION>",
   "version": "0.0.1",
   "type": "project",

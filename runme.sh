@@ -27,7 +27,8 @@ read -p "Your email (johndoe2000@mail.com): " EMAIL
 read -p "Your project name (My Project): " PROJECT_NAME
 read -p "Your project description (Lorem Ipsum...): " DESCRIPTION
 
-LOWERCASE_PROJECT_NAME=$(echo "$PROJECT_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+KEBAB_CASE_PROJECT_NAME=$(echo "$PROJECT_NAME" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+LOWERCASE_PROJECT_NAME="$(echo "${PROJECT_NAME// /}" | tr '[:upper:]' '[:lower:]')"
 GITHUB_REPO_NAME=$(echo "$PROJECT_NAME" | tr -d ' ')
 
 DB_CONNECTION="sqlite"
@@ -57,6 +58,9 @@ sed -i "s/<AUTHOR>/$AUTHOR/g" app/Http/Controllers/Controller.php
 sed -i "s/<EMAIL>/$EMAIL/g" app/Http/Controllers/Controller.php
 sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" app/Http/Controllers/Controller.php
 
+# app/Mail/ForgotPasswordMail.php
+sed -i "s/<LOWERCASE_PROJECT_NAME>/$LOWERCASE_PROJECT_NAME/g" app/Mail/ForgotPasswordMail.php
+
 # resources/views/layout.blade.php
 sed -i "s/<PROJECT_NAME>/$PROJECT_NAME/g" resources/views/layout.blade.php
 
@@ -67,7 +71,7 @@ sed -i "s|<DB_DATABASE>|$DB_DATABASE|g" .env
 
 # composer.json
 sed -i "s/<GITHUB_USERNAME>/$GITHUB_USERNAME/g" composer.json
-sed -i "s/<LOWERCASE_PROJECT_NAME>/$LOWERCASE_PROJECT_NAME/g" composer.json
+sed -i "s/<KEBAB_CASE_PROJECT_NAME>/$KEBAB_CASE_PROJECT_NAME/g" composer.json
 sed -i "s/<DESCRIPTION>/$DESCRIPTION/g" composer.json
 sed -i "s/<DATE>/$DATE/g" composer.json
 sed -i "s/<AUTHOR>/$AUTHOR/g" composer.json

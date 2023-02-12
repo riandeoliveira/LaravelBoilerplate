@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Rules\StrongPassword;
+use App\Rules\{NameFormat, StrongPassword, UsernameFormat};
 use App\Traits\RequestValidation;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,8 +27,9 @@ class RegisterRequest extends FormRequest {
    */
   public function rules(): array {
     return [
-      'name' => ['required', 'string', 'min:3', 'max:255', 'alpha'],
-      'email' => ['required', 'string', 'email', 'min:10', 'max:255', 'unique:users'],
+      'username' => ['required', 'string', 'min:3', 'max:30', 'unique:users', new UsernameFormat()],
+      'name' => ['required', 'string', 'min:3', 'max:30', new NameFormat()],
+      'email' => ['required', 'string', 'email', 'min:10', 'max:100', 'unique:users'],
       'password' => ['required', 'string', 'min:8', 'max:20', new StrongPassword()],
     ];
   }

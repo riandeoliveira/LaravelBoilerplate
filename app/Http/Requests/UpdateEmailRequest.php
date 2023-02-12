@@ -26,7 +26,7 @@ class UpdateEmailRequest extends FormRequest {
    */
   public function rules(): array {
     return [
-      'email' => ['required', 'string', 'email', 'min:10', 'max:255', 'unique:users'],
+      'email' => ['required', 'string', 'email', 'min:10', 'max:100', 'unique:users'],
     ];
   }
 }

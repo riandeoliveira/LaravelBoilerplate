@@ -59,4 +59,12 @@ class LoggedUserResponseSchema {
    * )
    */
   public string $updated_at;
+
+  /**
+   * @OA\Property(
+   *   property="username",
+   *   type="string"
+   * )
+   */
+  public string $username;
 }

@@ -255,6 +255,7 @@ class UserController extends Controller {
     $credentials = $request->validated();
 
     $user = User::create([
+      'username' => $credentials['username'],
       'name' => $credentials['name'],
       'email' => $credentials['email'],
       'password' => Hash::make($credentials['password']),

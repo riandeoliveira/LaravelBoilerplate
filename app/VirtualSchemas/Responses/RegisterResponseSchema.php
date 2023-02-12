@@ -31,6 +31,11 @@ class RegisterResponseSchema {
    *   ),
    *
    *   @OA\Property(
+   *     property="username",
+   *     type="string"
+   *   ),
+   *
+   *   @OA\Property(
    *     property="name",
    *     type="string",
    *   ),

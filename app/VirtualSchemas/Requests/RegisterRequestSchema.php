@@ -38,4 +38,13 @@ class RegisterRequestSchema {
    * )
    */
   public string $password;
+
+  /**
+   * @OA\Property(
+   *   property="username",
+   *   type="string",
+   *   example="johndoe"
+   * )
+   */
+  public string $username;
 }

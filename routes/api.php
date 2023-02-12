@@ -23,6 +23,7 @@ Route::controller(UserController::class)
     Route::middleware('auth:sanctum')->get('/logged-user', 'loggedUser');
     Route::middleware('auth:sanctum')->get('/logout', 'logout');
     Route::middleware('auth:sanctum')->patch('/update-email', 'updateEmail');
+    Route::middleware('auth:sanctum')->patch('/update-name', 'updateName');
     Route::middleware('auth:sanctum')->patch('/update-password', 'updatePassword');
     Route::patch('/reset-password', 'resetPassword');
     Route::post('/forgot-password', 'forgotPassword');

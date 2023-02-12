@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\{ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, UpdateEmailRequest, UpdatePasswordRequest};
+use App\Http\Requests\{ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, UpdateEmailRequest, UpdateNameRequest, UpdatePasswordRequest};
 use App\Mail\ForgotPasswordMail;
 use App\Models\User;
 use Carbon\Carbon;
@@ -375,6 +375,52 @@ class UserController extends Controller {
 
     return response()->json([
       'message' => 'Email updated successfully.',
+    ]);
+  }
+
+  /**
+   * @OA\Patch(
+   *   path="/api/users/update-name",
+   *   summary="Update user name",
+   *   description="Updates the user's name when he is logged.",
+   *   tags={"User"},
+   *   security={{"sanctum":{}}},
+   *
+   *   @OA\RequestBody(
+   *     required=true,
+   *     description="New user name",
+   *
+   *     @OA\JsonContent(ref="#/components/schemas/UpdateNameRequestSchema")
+   *   ),
+   *
+   *   @OA\Response(
+   *     response="200",
+   *     description="Success",
+   *
+   *     @OA\JsonContent(ref="#/components/schemas/UpdateNameResponseSchema")
+   *   ),
+   *
+   *   @OA\Response(
+   *     response="401",
+   *     description="Unauthorized"
+   *   ),
+   *
+   *   @OA\Response(
+   *     response="422",
+   *     description="Unprocessable Content"
+   *   )
+   * )
+   */
+  public function updateName(UpdateNameRequest $request): JsonResponse {
+    $credentials = $request->validated();
+    $currentUser = Auth::user();
+
+    User::where('id', $currentUser->id)->update([
+      'name' => $credentials['name'],
+    ]);
+
+    return response()->json([
+      'message' => 'Name updated successfully.',
     ]);
   }
 
